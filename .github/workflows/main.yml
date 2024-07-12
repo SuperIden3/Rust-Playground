@@ -17,9 +17,13 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build
-      run: cargo build --verbose
+      run: |
+        cd main
+        cargo build --verbose
     - name: Run
-      run: cargo test --verbose
+      run: |
+        cd main
+        cargo test --verbose
 
   clean:
 
