@@ -11,24 +11,29 @@ env:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     - name: Build
       run: |
         cd main
         cargo build --verbose
-    - name: Run
+    - name: Run Tests
       run: |
         cd main
         cargo test --verbose
-
-  clean:
-
+  start:
+    if: success()
     runs-on: ubuntu-latest
-
+    steps:
+    - uses: actions/checkout@v4
+    - name: Run
+      run: |
+        cd main/target/release
+        ./main
+  clean:
+    if: success()
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
     - name: Clean
