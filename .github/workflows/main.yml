@@ -7,7 +7,7 @@ on:
 env:
   CARGO_TERM_COLOR: always
 jobs:
-  build:
+  main:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -19,19 +19,11 @@ jobs:
       run: |
         cd main
         cargo test --verbose
-  start:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
     - name: Run
+      if: success()
       run: ./main/target/release/main
-  clean:
-    needs: start
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
     - name: Clean
+      if: success()
       run: |
         cd ./main/target
         cargo clean
