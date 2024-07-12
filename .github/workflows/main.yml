@@ -1,14 +1,11 @@
 name: Rust
-
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
 env:
   CARGO_TERM_COLOR: always
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -28,9 +25,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Run
-      run: |
-        cd main/target/release
-        ./main
+      run: ./main/target/release/main
   clean:
     needs: start
     runs-on: ubuntu-latest
