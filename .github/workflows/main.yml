@@ -28,4 +28,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Clean
-      run: make clean
+      run: |
+        cd ./main/target
+        cargo clean
