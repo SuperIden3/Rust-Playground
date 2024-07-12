@@ -1,0 +1,29 @@
+name: Rust
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+env:
+  CARGO_TERM_COLOR: always
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build
+      run: |
+        cd main
+        cargo build --verbose --release
+    - name: Run Tests
+      run: |
+        cd main
+        cargo test --verbose
+    - name: Run
+      if: success()
+      run: ./main/target/release/main
+    - name: Clean
+      if: success()
+      run: |
+        cd ./main/target
+        cargo clean
