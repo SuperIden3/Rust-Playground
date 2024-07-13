@@ -1,7 +1,6 @@
 // imports
-use future::{self, *};
+use future::{self};
 use ops::{self, *};
-use std::char::{self, *};
 use std::io::{self, *};
 use std::{self, *};
 

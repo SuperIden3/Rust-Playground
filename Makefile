@@ -3,14 +3,14 @@ CARGO_DIR = main
 BUILD_DIR = $(CARGO_DIR)/target
 
 .PHONY: all
-all: build run
+all: build run clean
 
 .PHONY: build
 build:
 	cd $(CARGO_DIR) && cargo build --release --verbose
 .PHONY: run
 run: build
-	echo "" && ./$(BUILD_DIR)/release/$(TARGET)
+	echo "" && ./$(BUILD_DIR)/release/$(TARGET) && echo ""
 .PHONY: clean
 clean:
 	cd $(CARGO_DIR) && cargo clean
