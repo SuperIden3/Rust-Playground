@@ -17,7 +17,7 @@ struct IRead {
 #[tokio::main]
 async fn main() {
     // main
-    println!("{:#?}", pick_random::<u8>([1, 2, 3, 4, 5]));
+    println!("{:#?}", pick_random::<u8>(&[1, 2, 3, 4, 5]));
 }
 
 // functions
