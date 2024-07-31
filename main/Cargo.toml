@@ -3,5 +3,12 @@ name = "main"
 version = "0.1.0"
 edition = "2021"
 
+[profile.dev]
+debug = true
+opt-level = 0
+
+[profile.release]
+debug = true
+
 [dependencies]
 tokio = { version = "1", features = ["full"] }

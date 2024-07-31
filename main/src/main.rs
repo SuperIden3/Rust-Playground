@@ -1,8 +1,13 @@
 // imports
-use future::{self};
-use ops::{self, *};
-use std::io::{self, *};
-use std::{self, *};
+use future::*;
+use ops::*;
+use std::io::*;
+use std::*;
+use std::time::*;
+use fmt::*;
+use result::*;
+use error::*;
+use tokio;
 
 // constants
 const PI: f64 = 3.141592653589793;
@@ -13,39 +18,46 @@ struct IRead {
     input: String,
 }
 
-#[tokio::main]
-async fn main() {
+// #[tokio::main]
+pub fn main() {
+    let start: Instant = Instant::now();
+
     // main
-    let number: f64 = get_line("What is the approximation of PI? ")
-        .unwrap()
-        .input
-        .parse::<f64>()
-        .unwrap();
-    let condition: bool = number == (PI.mul(100.0)).round() / 100.0;
-    match condition {
-        true => {
-            println!("Correct!");
-        }
-        false => {
-            println!("Wrong!");
-        }
-    }
+    let str: Box<String> = Box::new(String::from("Hello, World!"));
+    println!("{:#?}", str);
+
+    let end: Duration = start.elapsed();
+    println!("Code: {:#?}ms", end.as_millis() as f64);
 }
 
 // functions
-fn get_line(question: &str) -> Result<IRead> {
-    let stdin: io::Stdin = io::stdin();
-    let mut stdout: io::Stdout = io::stdout();
+fn ask(question: &str) -> io::Result<IRead> {
+    let stdin: Stdin = io::stdin();
+    let mut stdout: Stdout = io::stdout();
 
     let mut _input: String = String::new();
     print!("{}", question);
 
-    stdout
-        .flush()
-        .expect("An error occurred while flushing stdout");
-    let size: usize = stdin
-        .read_line(&mut _input)
-        .expect("An error occured while getting input");
+    let result1: result::Result<(), io::Error> = stdout.flush();
+    let result2: result::Result<usize, io::Error> = stdin
+        .read_line(&mut _input);
+    match result1 {
+        Err(e) => {
+            eprintln!("{:#?}", e);
+            return Err(e);
+        }
+        Ok(_) => {}
+    }
+    let size: usize;
+    match result2 {
+        Err(e) => {
+            eprintln!("{:#?}", e);
+            return Err(e);
+        }
+        Ok(s) => {
+            size = s;
+        }
+    }
 
     Ok(IRead {
         length: size,
