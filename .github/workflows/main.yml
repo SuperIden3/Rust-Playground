@@ -19,9 +19,9 @@ jobs:
       run: |
         cd main
         cargo test --verbose
-    - name: Run
+    - name: Run (With Time)
       if: success()
-      run: ./main/target/release/main
+      run: bash -c "time ./main/target/release/main"
     - name: Clean
       if: success()
       run: |

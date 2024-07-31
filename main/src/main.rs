@@ -1,13 +1,9 @@
 // imports
-use future::*;
-use ops::*;
-use std::io::*;
-use std::*;
-use std::time::*;
-use fmt::*;
-use result::*;
-use error::*;
-use tokio;
+use future::{self};
+use ops::{self, *};
+use std::io::{self, *};
+use std::{self, *};
+use rand::*;
 
 // constants
 const PI: f64 = 3.141592653589793;
@@ -20,14 +16,8 @@ struct IRead {
 
 // #[tokio::main]
 pub fn main() {
-    let start: Instant = Instant::now();
-
     // main
-    let str: Box<String> = Box::new(String::from("Hello, World!"));
-    println!("{:#?}", str);
-
-    let end: Duration = start.elapsed();
-    println!("Code: {:#?}ms", end.as_millis() as f64);
+    println!("{:#?}", pick_random::<u8>(&[1, 2, 3, 4, 5]));
 }
 
 // functions
@@ -63,4 +53,10 @@ fn ask(question: &str) -> io::Result<IRead> {
         length: size,
         input: _input.trim().to_string(),
     })
+}
+
+fn pick_random<T>(arr: &[T]) -> &T { 
+    let mut rng = rand::thread_rng();
+    let index = rng.gen_range(0..arr.len());
+    return &arr[index];
 }
