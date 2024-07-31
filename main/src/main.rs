@@ -3,6 +3,7 @@ use future::{self};
 use ops::{self, *};
 use std::io::{self, *};
 use std::{self, *};
+use rand::*;
 
 // constants
 const PI: f64 = 3.141592653589793;
@@ -16,20 +17,7 @@ struct IRead {
 #[tokio::main]
 async fn main() {
     // main
-    let number: f64 = get_line("What is the approximation of PI? ")
-        .unwrap()
-        .input
-        .parse::<f64>()
-        .unwrap();
-    let condition: bool = number == (PI.mul(100.0)).round() / 100.0;
-    match condition {
-        true => {
-            println!("Correct!");
-        }
-        false => {
-            println!("Wrong!");
-        }
-    }
+    println!("{:#?}", pick_random<u8>([1, 2, 3, 4, 5]));
 }
 
 // functions
@@ -51,4 +39,10 @@ fn get_line(question: &str) -> Result<IRead> {
         length: size,
         input: _input.trim().to_string(),
     })
+}
+
+fn pick_random<T>(arr: &[T]) -> &T { 
+    let mut rng = rand::thread_rng();
+    let index = rng.gen_range(0..arr.len());
+    return &arr[index];
 }
