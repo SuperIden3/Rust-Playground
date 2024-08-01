@@ -10,7 +10,8 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - name: Check Repo
+      uses: actions/checkout@v4
     - name: Build
       run: |
         cd main
