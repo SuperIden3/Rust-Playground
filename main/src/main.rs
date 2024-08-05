@@ -1,23 +1,42 @@
+use borrow::Borrow;
 // imports
+use async_stream::{self, *};
+use future::*;
 use ops::{self, *};
-use tokio::{self, *};
-use std::io::{self, *};
-use std::{self, *};
 use rand::{self, *};
+use std::io::{self, *};
+use std::*;
+use std::{self, *};
+use tokio::runtime::{self, *};
+use tokio::*;
+use tokio::{self, *};
 
 // constants
 const PI: f64 = 3.141592653589793;
 
 // structures
+/**
+Struct that holds a `String` and the length of it.
+
+Usually used with working with input.
+
+```rs
+let a = IRead {
+  input: "Hello World!",
+  length: 12
+};
+println!("{:?}", a);
+```
+ */
 struct IRead {
     length: usize,
     input: String,
 }
 
-// #[tokio::main]
-pub fn main() {
+#[tokio::main]
+pub async fn main() {
     // main
-    println!("Hello, world!");
+    println!("{:#?}", ask("Input: ").unwrap().input);
 }
 
 // functions
@@ -62,7 +81,7 @@ Picks a random element from an array.
 
 Returns a reference to the chosen element.
  */
-fn pick_random<T>(arr: &[T]) -> &T { 
+fn pick_random<T>(arr: &[T]) -> &T {
     let mut rng: rngs::ThreadRng = rand::thread_rng();
     let index: usize = rng.gen_range(0..arr.len());
     return &arr[index];

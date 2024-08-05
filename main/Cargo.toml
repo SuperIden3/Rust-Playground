@@ -13,3 +13,4 @@ debug = true
 [dependencies]
 tokio = { version = "1", features = ["full"] }
 rand = "*"
+async-stream = "*"

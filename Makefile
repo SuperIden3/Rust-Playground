@@ -6,7 +6,7 @@ DEBUGDIR = $(BUILD_DIR)/release
 
 .PHONY: update build debug compile run clean all
 
-all: run
+all: build
 update:
 	cd $(CARGO_DIR) && cargo update --verbose
 compile:
