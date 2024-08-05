@@ -1,9 +1,8 @@
 // imports
-use ops::{self, *};
-use tokio::{self, *};
+use ops::{self};
 use std::io::{self, *};
 use std::{self, *};
-use rand::{self, *};
+use rand::*;
 
 // constants
 const PI: f64 = 3.141592653589793;
@@ -17,7 +16,7 @@ struct IRead {
 // #[tokio::main]
 pub fn main() {
     // main
-    println!("Hello, world!");
+    println!("{:#?}", pick_random::<u8>(&[1, 2, 3, 4, 5]));
 }
 
 // functions
