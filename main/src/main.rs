@@ -1,5 +1,5 @@
-use borrow::Borrow;
 // imports
+use borrow::{self, *};
 use async_stream::{self, *};
 use future::*;
 use ops::{self, *};
