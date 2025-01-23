@@ -36,7 +36,7 @@ struct IRead {
 #[tokio::main]
 pub async fn main() {
     // main
-    println!("{:#?}", ask("Input: ").unwrap().input);
+    println!("{:#?}", ask("Input: ").expect("Couldn't get input").input);
 }
 
 // functions
@@ -52,28 +52,20 @@ fn ask(question: &str) -> io::Result<IRead> {
     let mut _input: String = String::new();
     print!("{}", question);
 
-    let result1: result::Result<(), io::Error> = stdout.flush();
-    let result2: result::Result<usize, io::Error> = stdin.read_line(&mut _input);
-    match result1 {
-        Err(e) => {
-            return Err(e);
-        }
-        Ok(_) => {}
-    }
-    let size: usize;
-    match result2 {
-        Err(e) => {
-            return Err(e);
-        }
-        Ok(s) => {
-            size = s;
-        }
-    }
+    stdout.flush()?;
+    let size: usize = stdin.read_line(&mut _input)?;
 
-    Ok(IRead {
+    let res: String = _input.trim().to_string();
+
+    let ret: IRead = IRead {
         length: size,
-        input: _input.trim().to_string(),
-    })
+        input: res.clone(),
+    };
+    if res.is_empty() {
+        let error: io::Error = io::Error::new(io::ErrorKind::UnexpectedEof, "Input too small");
+        return Err(error);
+    }
+    return Ok(ret);
 }
 
 /**
